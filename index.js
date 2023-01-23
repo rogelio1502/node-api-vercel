@@ -8,9 +8,13 @@ app.listen(PORT, () => {
 })
 
 app.get('/', (req, res) => {
-  let query = req.query.q
-  let response = items.filter(i =>
-    i.name.toLowerCase().includes(query.toLocaleLowerCase())
+  let query = ''
+  if (req.query.q) {
+    query = req.query.q
+  }
+
+  let response = items.filter(
+    i => i.name.toLowerCase().includes(query.toLocaleLowerCase()) && query != ''
   )
   res.json(response)
 })
