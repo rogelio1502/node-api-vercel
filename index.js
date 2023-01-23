@@ -1,5 +1,5 @@
 const express = require('express')
-
+const items = require('./data').items
 const app = express()
 const PORT = 4000
 
@@ -8,7 +8,7 @@ app.listen(PORT, () => {
 })
 
 app.get('/', (req, res) => {
-  res.json({ hola: 'mundo' })
+  res.json(items)
 })
 
 app.get('/about', (req, res) => {
