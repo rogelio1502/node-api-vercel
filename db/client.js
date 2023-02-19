@@ -32,7 +32,7 @@ const run = (url, org, exc_message, status) => {
     case 'paramount':
       o = new Paramount({ url, org, exc_message, status })
       return o.save()
-    case 'seniorcare':
+    case 'senior-care':
       o = new SeniorCare({ url, org, exc_message, status })
       return o.save()
     default:
