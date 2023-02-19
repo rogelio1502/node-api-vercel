@@ -1,4 +1,4 @@
-const MongoClient = require('mongodb').MongoClient
+const { MongoClient } = require('mongodb')
 // Replace the uri string with your MongoDB deployment's connection string.
 
 async function run (url, org, exc_message, status) {
