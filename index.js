@@ -2,7 +2,9 @@ const express = require('express')
 const items = require('./data').items
 const app = express()
 const PORT = 4000
+const client = require('./db/client')
 var cors = require('cors')
+app.use(express.json())
 
 app.use(cors())
 app.listen(PORT, () => {
@@ -25,6 +27,20 @@ app.get('/', (req, res) => {
 
 app.get('/about', (req, res) => {
   res.send('This is my about route..... ')
+})
+
+app.post('/assets-webhook', (req, res) => {
+  console.log('ok')
+  let body = req.body
+  client
+    .run(body.url, body.org, body.exc_message, body.status)
+    .then(r => {
+      res.status(201).send()
+    })
+    .catch(e => {
+      console.log(e)
+      res.status(400).send()
+    })
 })
 
 // Export the Express API
