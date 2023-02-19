@@ -1,27 +1,18 @@
-const { MongoClient } = require('mongodb')
-// Replace the uri string with your MongoDB deployment's connection string.
+const mongoose = require('mongoose')
+const log_ = mongoose.model('LOG_', {
+  url: String,
+  org: String,
+  exc_message: String,
+  status: String
+})
 
-async function run (url, org, exc_message, status) {
-  const uri =
-    'mongodb+srv://rogelio15:susana15@cluster0.uuakb.mongodb.net/?retryWrites=true&w=majority'
-  const client = new MongoClient(uri)
-  const database = client.db('pmdt')
-  try {
-    const haiku = database.collection(org)
-    // create a document to insert
-    const doc = {
-      url,
-      org,
-      exc_message,
-      status
-    }
-    const result = await haiku.insertOne(doc)
-    console.log(`A document was inserted with the _id: ${result.insertedId}`)
-  } finally {
-    await client.close()
-  }
+const uri =
+  'mongodb+srv://rogelio15:susana15@cluster0.uuakb.mongodb.net/?retryWrites=true&w=majority'
+const run = (url, org, exc_message, status) => {
+  mongoose.connect(uri)
+
+  const new_log_ = new log_({ url, org, exc_message, status })
+  return new_log_.save()
 }
 
-module.exports = {
-  run
-}
+module.exports = { run }
