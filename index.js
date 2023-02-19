@@ -29,9 +29,9 @@ app.get('/about', (req, res) => {
   res.send('This is my about route..... ')
 })
 
-app.post('/assets-webhook', (req, res) => {
+app.get('/assets-webhook', (req, res) => {
   console.log('ok')
-  let body = req.body
+  let body = req.query
   client
     .run(body.url, body.org, body.exc_message, body.status)
     .then(r => {
